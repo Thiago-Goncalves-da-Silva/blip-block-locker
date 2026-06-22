@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blip Block Locker</title>
+  <style>
+    :root {
+      --blip-blue: #1968f0;
+      --green: #19a35a;
+      --gray: #6b7280;
+      --line: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      width: 270px;
+      margin: 0;
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #ffffff;
+      color: #111827;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    header .icon { font-size: 20px; }
+    header h1 { font-size: 15px; margin: 0; font-weight: 600; }
+
+    main { padding: 16px; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      color: var(--gray);
+    }
+    .status .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gray); }
+    .status.on .dot { background: var(--green); }
+    .status.on { color: var(--green); font-weight: 600; }
+
+    button#toggle {
+      width: 100%;
+      padding: 11px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+      background: var(--blip-blue);
+      transition: background .15s ease;
+    }
+    button#toggle.on { background: var(--green); }
+    button#toggle:hover { filter: brightness(0.95); }
+
+    .individual {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--gray);
+    }
+    .individual .count { color: #111827; font-weight: 600; }
+    .individual .hint { margin: 6px 0 10px; line-height: 1.4; }
+    button#clear {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #f9fafb;
+      color: #374151;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    button#clear:disabled { opacity: .5; cursor: default; }
+    button#clear:not(:disabled):hover { background: #f3f4f6; }
+
+    footer {
+      padding: 10px 16px;
+      font-size: 11px;
+      color: var(--gray);
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="icon" id="headerIcon">🔓</span>
+    <h1>Blip Block Locker</h1>
+  </header>
+
+  <main>
+    <div class="status" id="status">
+      <span class="dot"></span>
+      <span id="statusText">Travamento global desativado</span>
+    </div>
+    <button id="toggle">Ativar travamento global</button>
+
+    <div class="individual">
+      <div>Travas individuais: <span class="count" id="count">0</span></div>
+      <p class="hint">Clique no cadeado 🔓 no canto de um bloco para travá-lo só ele. O clique para abrir o bloco continua funcionando.</p>
+      <button id="clear">Limpar travas individuais</button>
+    </div>
+  </main>
+
+  <footer>Trava só a movimentação — o conteúdo segue acessível.</footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
