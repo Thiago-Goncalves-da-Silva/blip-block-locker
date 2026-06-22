@@ -20,16 +20,44 @@ Trava só o arraste. O conteúdo segue acessível.
 
 ---
 
+## 🌐 Compatibilidade
+
+O mesmo pacote roda em todos os navegadores baseados em **Chromium** e também no **Firefox**:
+
+| Navegador | Suporte | Observação |
+|-----------|---------|------------|
+| Chrome    | ✅ | — |
+| Opera     | ✅ | Mesmo pacote, sem alterações |
+| Edge      | ✅ | Mesmo pacote |
+| Brave     | ✅ | Mesmo pacote |
+| Vivaldi   | ✅ | Mesmo pacote |
+| Firefox   | ✅ | Usa o bloco `browser_specific_settings` do manifest |
+
+O código usa o namespace `chrome.*` (com callbacks), suportado tanto pelos navegadores
+Chromium quanto pelo Firefox — por isso não há build separado.
+
 ## 📦 Instalação (modo desenvolvedor)
 
-1. Abra `chrome://extensions` no Chrome.
-2. Ative o **Modo desenvolvedor** (canto superior direito).
-3. Clique em **Carregar sem compactação**.
-4. Selecione a pasta `meu-travador-blip`.
-5. Abra o BLiP Builder e clique no ícone 🔒 da extensão.
+### Chrome / Edge / Brave / Vivaldi
+1. Abra `chrome://extensions` (no Edge: `edge://extensions`).
+2. Ative o **Modo desenvolvedor**.
+3. Clique em **Carregar sem compactação** e selecione a pasta `meu-travador-blip`.
 
-> Após editar qualquer arquivo, clique no botão de **recarregar** no card da extensão
+### Opera
+1. Abra `opera://extensions`.
+2. Ative o **Modo de desenvolvedor** (canto superior direito).
+3. Clique em **Carregar extensão sem pacote** e selecione a pasta `meu-travador-blip`.
+
+### Firefox
+1. Abra `about:debugging#/runtime/this-firefox`.
+2. Clique em **Carregar extensão temporária…**.
+3. Selecione o arquivo `manifest.json` dentro da pasta.
+
+> Após editar qualquer arquivo, recarregue a extensão na página de extensões do navegador
 > e dê **F5** na aba do Builder.
+>
+> No Firefox a carga é **temporária** (some ao fechar o navegador). Para instalação
+> permanente é preciso assinar/publicar a extensão (veja abaixo).
 
 ---
 
