@@ -1,9 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Blip Block Locker",
-  "version": "1.0.0",
-  "description": "Trava blocos no canvas do BLiP Builder, impedindo que sejam movidos acidentalmente.",
-  "permissions": ["storage", "activeTab"],
+  "version": "1.1.0",
+  "description": "Trava blocos no canvas do BLiP Builder e mostra guias de alinhamento ao arrastar.",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "blip-block-locker@telek.com.br",
@@ -29,7 +32,10 @@
       "matches": [
         "https://*.blip.ai/*"
       ],
-      "js": ["content.js"],
+      "js": [
+        "content.js",
+        "align.js"
+      ],
       "run_at": "document_idle",
       "all_frames": true
     }

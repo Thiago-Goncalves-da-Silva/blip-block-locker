@@ -50,9 +50,21 @@ clearBtn.addEventListener("click", () => {
   chrome.storage.local.set({ [KEY_BLOCKS]: [] }, () => renderCount([]));
 });
 
+// Guias de alinhamento (align.js) — padrão: ligado.
+const KEY_ALIGN = "blipAlignEnabled";   // boolean
+const alignToggle = document.getElementById("alignToggle");
+
+chrome.storage.local.get(KEY_ALIGN, (data) => {
+  alignToggle.checked = data[KEY_ALIGN] !== false;
+});
+alignToggle.addEventListener("change", () => {
+  chrome.storage.local.set({ [KEY_ALIGN]: alignToggle.checked });
+});
+
 // Mantém a UI sincronizada com mudanças vindas da página/outras abas.
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") return;
+  if (KEY_ALIGN in changes) alignToggle.checked = changes[KEY_ALIGN].newValue !== false;
   if (KEY_GLOBAL in changes) renderGlobal(!!changes[KEY_GLOBAL].newValue);
   if (KEY_BLOCKS in changes) renderCount(changes[KEY_BLOCKS].newValue);
 });
