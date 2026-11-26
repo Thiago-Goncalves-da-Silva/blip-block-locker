@@ -6,6 +6,8 @@ Extensão Chrome (Manifest V3) que **trava a movimentação dos blocos** no canv
 
 Trava só o arraste. O conteúdo segue acessível.
 
+Também mostra **guias de alinhamento** enquanto você arrasta um bloco, para deixar o fluxo organizado.
+
 ---
 
 ## ✨ Funcionalidades
@@ -16,6 +18,7 @@ Trava só o arraste. O conteúdo segue acessível.
 - **Persistência** — o estado sobrevive a recarregamentos da página (`chrome.storage.local`).
 - **Funciona com blocos dinâmicos** — `MutationObserver` aplica a trava a blocos criados depois do carregamento.
 - **Indicador visual** — bloco travado ganha borda azul tracejada + cadeado fechado.
+- **Guias de alinhamento** — ao arrastar um bloco, uma linha **verde** mostra que ele está alinhado (borda ou centro) com o bloco mais próximo; uma linha **rosa tracejada** mostra que está quase, com quantos px faltam.
 - **100% local** — sem frameworks externos e sem requisições de rede.
 
 ---
@@ -70,6 +73,7 @@ Chromium quanto pelo Firefox — por isso não há build separado.
 | Destravar um bloco | Clique no cadeado 🔒 (vira 🔓) |
 | Ver quantos estão travados | A popup mostra o contador de travas individuais |
 | Limpar travas individuais | Popup → **Limpar travas individuais** |
+| Ligar/desligar as guias | Popup → **Guias de alinhamento** |
 
 Um bloco fica **efetivamente travado** se: *trava global ligada* **OU** *cadeado individual fechado*.
 
@@ -87,6 +91,14 @@ uma lib interna. A trava age em camadas:
    (sem mover) → nenhum `move` → o bloco abre normalmente.
 2. **`MutationObserver`** — reaplica trava e cadeado a blocos criados dinamicamente.
 3. **`chrome.storage` + `onChanged`** — a popup grava o estado, o content script reage em tempo real.
+
+### Guias de alinhamento ([`align.js`](align.js))
+
+Cada bloco é um `<builder-node>` com posição absoluta (`left`/`top`) dentro de `#diagramContainer`.
+Enquanto um bloco é arrastado, o script compara esquerda/centro/direita e topo/centro/base dele com os
+dos outros blocos e desenha as guias numa camada por cima do canvas (`pointer-events: none`), que
+acompanha o zoom. Ele **não altera a posição** dos blocos. Blocos travados não mostram guias.
+A tolerância (`TOL`, 8 px) e as cores ficam no topo do arquivo.
 
 ### Seletores dos blocos
 Definidos em [`content.js`](content.js) (`BLOCK_SELECTORS`):
@@ -108,8 +120,9 @@ Definidos em [`content.js`](content.js) (`BLOCK_SELECTORS`):
 meu-travador-blip/
 ├── manifest.json     # Manifest V3, permissões, ícones
 ├── content.js        # lógica de travamento (injetado no Builder)
+├── align.js          # guias de alinhamento ao arrastar
 ├── popup.html        # UI da popup
-├── popup.js          # controle da popup (global + individual)
+├── popup.js          # controle da popup (travas + guias)
 ├── icons/            # ícones 16/48/128px
 └── README.md
 ```

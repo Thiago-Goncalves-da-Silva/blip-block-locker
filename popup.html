@@ -80,6 +80,26 @@
     button#clear:disabled { opacity: .5; cursor: default; }
     button#clear:not(:disabled):hover { background: #f3f4f6; }
 
+    .align {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--gray);
+    }
+    .align .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #111827;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .align input { width: 16px; height: 16px; accent-color: var(--green); cursor: pointer; }
+    .align .hint { margin: 6px 0 0; line-height: 1.4; }
+    .align .ok { color: var(--green); font-weight: 600; }
+    .align .near { color: #ff2d8a; font-weight: 600; }
+
     footer {
       padding: 10px 16px;
       font-size: 11px;
@@ -106,6 +126,17 @@
       <div>Travas individuais: <span class="count" id="count">0</span></div>
       <p class="hint">Clique no cadeado 🔓 no canto de um bloco para travá-lo só ele. O clique para abrir o bloco continua funcionando.</p>
       <button id="clear">Limpar travas individuais</button>
+    </div>
+
+    <div class="align">
+      <label class="switch-row">
+        <span>Guias de alinhamento</span>
+        <input type="checkbox" id="alignToggle" checked />
+      </label>
+      <p class="hint">
+        Ao arrastar um bloco: <span class="ok">linha verde</span> = alinhado;
+        <span class="near">linha rosa tracejada</span> = quase (mostra quantos px faltam).
+      </p>
     </div>
   </main>
 
